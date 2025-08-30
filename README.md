@@ -32,7 +32,7 @@ A secure, transparent voting platform built on blockchain technology.
    - macOS/Linux: `source venv/bin/activate`
 4. Install dependencies: `pip install -r requirements.txt`
 5. Run the Flask server: `python app.py`
-6. In a new terminal, 'cd backend' then 'pip install flask-socketio'
+6. In a new terminal, `cd backend` then `pip install flask-socketio`
 7. Run the WebSocket server: `python ws_server.py`
 
 ### Frontend Setup
@@ -66,3 +66,4 @@ Dr. Nilesh Kunhare
 ## License
 
 This project is for educational purposes.
+
