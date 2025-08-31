@@ -9,8 +9,8 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 blockchain = Blockchain()
-registered_voters = {}
-admin_key = "admin123"
+registered_voters = {}  # Stores voter information with hashed IDs as keys
+admin_key = "admin123"  # In production, use secure authentication
 
 @app.route('/chain', methods=['GET'])
 def get_chain():
@@ -53,10 +53,14 @@ def add_vote():
         if not all(field in data for field in required_fields):
             return jsonify({"message": "Missing fields"}), 400
         
-        # Verify voter is registered
+        # Verify voter is registered and active
         voter_id_hash = hashlib.sha256(data['voter_id'].encode()).hexdigest()
         if voter_id_hash not in registered_voters:
             return jsonify({"message": "Voter not registered"}), 400
+        
+        # Check if voter is approved
+        if registered_voters[voter_id_hash]['status'] != 'Active':
+            return jsonify({"message": "Voter not approved. Please contact administrator."}), 400
         
         # Check if voter has already voted
         for block in blockchain.chain:
@@ -70,7 +74,7 @@ def add_vote():
         
         if success:
             # Mine the block if we have pending transactions
-            if len(blockchain.pending_transactions) >= 1:  # Reduced from 3 to 1 for testing
+            if len(blockchain.pending_transactions) >= 1:
                 blockchain.mine_pending_transactions()
             return jsonify({"message": "Vote added successfully"}), 201
         else:
@@ -89,29 +93,95 @@ def get_results():
         print("Error in get_results:", str(e))
         return jsonify({"error": str(e)}), 500
 
-@app.route('/register', methods=['POST'])
-def register_voter():
+# Voter self-registration endpoint
+@app.route('/register_voter', methods=['POST'])
+def register_voter_self():
     try:
         data = request.get_json()
-        print("Registration data:", data)  # Debug print
+        print("Voter registration data:", data)
         
-        if not data or 'voter_id' not in data:
-            return jsonify({"message": "Voter ID required"}), 400
+        if not data:
+            return jsonify({"message": "No data provided"}), 400
+        
+        # Check for required fields
+        required_fields = ['id', 'name', 'email', 'place', 'age']
+        missing_fields = [field for field in required_fields if field not in data or not data[field]]
+        
+        if missing_fields:
+            return jsonify({"message": f"Missing required fields: {', '.join(missing_fields)}"}), 400
+        
+        # Hash the voter ID for storage
+        voter_id_hash = hashlib.sha256(data['id'].encode()).hexdigest()
+        
+        if voter_id_hash in registered_voters:
+            return jsonify({"message": "Voter ID already registered"}), 400
+        
+        # Store voter information
+        voter_info = {
+            'original_id': data['id'],
+            'name': data['name'],
+            'email': data['email'],
+            'place': data['place'],
+            'age': data['age'],
+            'status': 'Pending'  # Needs admin approval
+        }
+        
+        registered_voters[voter_id_hash] = voter_info
+        print(f"Voter registered: {data['id']} -> {voter_id_hash}")
+        return jsonify({
+            "message": "Registration submitted successfully. Waiting for admin approval.",
+            "hashed_id": voter_id_hash
+        }), 201
+        
+    except Exception as e:
+        print("Error in register_voter_self:", str(e))
+        return jsonify({"message": f"Server error: {str(e)}"}), 500
+
+# Admin approval endpoint
+@app.route('/approve_voter', methods=['POST'])
+def approve_voter():
+    try:
+        data = request.get_json()
         
         if 'admin_key' not in data or data['admin_key'] != admin_key:
             return jsonify({"message": "Invalid admin key"}), 401
         
-        voter_id_hash = hashlib.sha256(data['voter_id'].encode()).hexdigest()
+        if 'voter_hash' not in data:
+            return jsonify({"message": "Voter hash required"}), 400
         
-        if voter_id_hash in registered_voters:
-            return jsonify({"message": "Voter already registered"}), 400
+        voter_hash = data['voter_hash']
+        if voter_hash not in registered_voters:
+            return jsonify({"message": "Voter not found"}), 404
         
-        registered_voters[voter_id_hash] = True
-        print(f"Registered voter: {data['voter_id']} -> {voter_id_hash}")
-        return jsonify({"message": "Voter registered successfully"}), 201
+        # Approve the voter
+        registered_voters[voter_hash]['status'] = 'Active'
+        print(f"Approved voter: {voter_hash}")
+        return jsonify({"message": "Voter approved successfully"}), 200
         
     except Exception as e:
-        print("Error in register_voter:", str(e))
+        print("Error in approve_voter:", str(e))
+        return jsonify({"message": f"Server error: {str(e)}"}), 500
+
+@app.route('/voters', methods=['GET'])
+def get_voters():
+    try:
+        # Return all registered voters with their status
+        voters_list = []
+        for voter_hash, voter_info in registered_voters.items():
+            voters_list.append({
+                'hashed_id': voter_hash,
+                'original_id': voter_info['original_id'],
+                'name': voter_info['name'],
+                'email': voter_info['email'],
+                'place': voter_info['place'],
+                'age': voter_info['age'],
+                'status': voter_info['status']
+            })
+        
+        return jsonify(voters_list), 200
+        
+    except Exception as e:
+        print("Error in get_voters:", str(e))
         return jsonify({"message": f"Server error: {str(e)}"}), 500
 
 @app.route('/validate', methods=['GET'])
