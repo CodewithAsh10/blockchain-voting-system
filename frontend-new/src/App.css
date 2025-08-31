@@ -1,335 +1,372 @@
-/* Modern CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Modern Color Scheme */
+:root {
+  --primary-color: #2C3E50;
+  --secondary-color: #3498DB;
+  --background-color: #ECF0F1;
+  --text-color: #2C3E50;
+  --success-color: #27AE60;
+  --warning-color: #E74C3C;
+  --highlight-color: #F39C12;
+  --light-color: #FFFFFF;
+  --border-color: #BDC3C7;
 }
 
 /* Global Styles */
 body {
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #f8fafc;
-  min-height: 100vh;
   line-height: 1.6;
 }
 
 .App {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-}
-
-/* Glassmorphism Effects */
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3);
-  border-color: rgba(99, 102, 241, 0.4);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Enhanced Navbar */
-.custom-navbar {
-  background: rgba(15, 23, 42, 0.9) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
-  padding: 0.8rem 0;
+.navbar-custom {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1A2530 100%) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 1rem;
 }
 
-.custom-navbar .navbar-brand {
+.navbar-brand {
   font-weight: 700;
   font-size: 1.5rem;
-  background: linear-gradient(45deg, #6366f1, #10b981);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--light-color) !important;
+  letter-spacing: 0.5px;
 }
 
-.custom-navbar .nav-link {
-  color: #f8fafc !important;
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
   font-weight: 500;
   padding: 0.5rem 1rem;
   margin: 0 0.2rem;
-  border-radius: 12px;
+  border-radius: 4px;
   transition: all 0.3s ease;
-  position: relative;
 }
 
-.custom-navbar .nav-link::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(45deg, #6366f1, #10b981);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--light-color) !important;
+  transform: translateY(-1px);
 }
 
-.custom-navbar .nav-link:hover::before,
-.custom-navbar .nav-link.active::before {
-  width: 80%;
-}
-
-.custom-navbar .nav-link:hover,
-.custom-navbar .nav-link.active {
-  background: rgba(99, 102, 241, 0.1);
-  transform: translateY(-2px);
+.navbar-text {
+  color: var(--light-color) !important;
+  font-weight: 600;
+  background-color: rgba(52, 152, 219, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
 }
 
 /* Enhanced Cards */
 .enhanced-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   overflow: hidden;
 }
 
 .enhanced-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.enhanced-card .card-body {
+.card-header-custom {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2980B9 100%);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+/* Enhanced Forms */
+.enhanced-form {
+  background: var(--light-color);
   padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* Modern Form Controls */
-.glass-form-control {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 12px !important;
-  color: #f8fafc !important;
-  padding: 0.75rem 1rem !important;
-  transition: all 0.3s ease !important;
-  backdrop-filter: blur(10px);
+.form-control-custom {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #F8F9FA;
 }
 
-.glass-form-control:focus {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+.form-control-custom:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  background-color: var(--light-color);
+}
+
+.form-label-custom {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Enhanced Buttons */
+.btn-custom-primary {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2980B9 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.btn-custom-primary:hover {
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+  background: linear-gradient(135deg, #2980B9 0%, var(--secondary-color) 100%);
+  color: white;
 }
 
-.glass-form-control::placeholder {
-  color: rgba(248, 250, 252, 0.6) !important;
+.btn-custom-secondary {
+  background: linear-gradient(135deg, #95A5A6 0%, #7F8C8D 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-custom-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(149, 165, 166, 0.3);
+  color: white;
 }
 
 /* Enhanced Select Dropdown */
-.glass-select {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 12px !important;
-  color: #f8fafc !important;
-  padding: 0.75rem 1rem !important;
-  transition: all 0.3s ease !important;
-  backdrop-filter: blur(10px);
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f8fafc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+.select-custom {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232C3E50' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12L8 12z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
-  background-size: 16px 12px;
+  background-size: 16px;
+  padding-right: 2.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.glass-select:focus {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border-color: #6366f1 !important;
-  box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
-  transform: translateY(-2px);
+/* Enhanced Alerts */
+.alert-custom-success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #229954 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
-/* Elegant Buttons */
-.glass-btn {
-  background: linear-gradient(45deg, #6366f1, #10b981) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  padding: 0.75rem 2rem !important;
-  font-weight: 600 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
+.alert-custom-danger {
+  background: linear-gradient(135deg, var(--warning-color) 0%, #CB4335 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
-.glass-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.glass-btn:hover::before {
-  left: 100%;
-}
-
-.glass-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-}
-
-.glass-btn:active {
-  transform: translateY(-1px) scale(1.01);
-}
-
-/* Dashboard Specific Styles */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
+/* Dashboard Enhancements */
+.dashboard-stat {
   text-align: center;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .stat-number {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #6366f1, #10b981);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
-  color: rgba(248, 250, 252, 0.8);
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 1rem;
+  color: #7F8C8D;
+  font-weight: 500;
 }
 
-/* Blockchain Explorer */
-.blockchain-explorer {
-  max-height: 600px;
-  overflow-y: auto;
-  padding: 1rem;
+/* Blockchain Explorer Specific Styles */
+.transaction-card {
+  border-left: 4px solid #3498DB;
+  transition: all 0.2s ease;
 }
 
-.accordion-glass .accordion-item {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(10px);
+.transaction-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.15);
 }
 
-.accordion-glass .accordion-button {
-  background: rgba(255, 255, 255, 0.08);
-  color: #f8fafc;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
+.hash-display {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, #F8F9FA 0%, #ECF0F1 100%);
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  word-break: break-all;
+  color: #2C3E50;
+  border: 1px solid #BDC3C7;
+}
+
+.blockchain-accordion .accordion-button {
+  background: linear-gradient(135deg, #F8F9FA 0%, #ECF0F1 100%);
+  color: #2C3E50;
   font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 1px solid #BDC3C7;
+  border-radius: 8px !important;
+  margin-bottom: 0.5rem;
 }
 
-.accordion-glass .accordion-button:not(.collapsed) {
-  background: rgba(99, 102, 241, 0.15);
-  color: #f8fafc;
-  box-shadow: none;
+.blockchain-accordion .accordion-button:not(.collapsed) {
+  background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+  border: 1px solid #2980B9;
 }
 
-.accordion-glass .accordion-body {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 0 0 12px 12px;
+.blockchain-accordion .accordion-item {
+  border: none;
+  background: transparent;
 }
 
-/* Alert Styles */
-.glass-alert {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
+.blockchain-accordion .accordion-body {
+  padding: 0;
+  background: transparent;
+}
+
+/* Login Page Styles */
+.login-card {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.custom-tabs .nav-link {
+  color: #2C3E50;
+  font-weight: 500;
+  padding: 1rem;
+  border: none;
+  border-bottom: 3px solid transparent;
+}
+
+.custom-tabs .nav-link.active {
+  color: #3498DB;
+  background: transparent;
+  border-bottom: 3px solid #3498DB;
+}
+
+.custom-tabs .nav-link:hover {
+  color: #2980B9;
+  border-color: #2980B9;
+}
+
+/* Admin Dashboard Styles */
+.admin-stats {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.admin-stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2C3E50;
+  margin-bottom: 0.5rem;
+}
+
+.admin-stat-label {
+  font-size: 1rem;
+  color: #7F8C8D;
+  font-weight: 500;
+}
+
+/* Table Styles */
+.table th {
+  border-top: none;
+  font-weight: 600;
+  color: #2C3E50;
+  background-color: #F8F9FA;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(52, 152, 219, 0.05);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
+  .login-card {
+    margin: 1rem;
   }
   
-  .custom-navbar .navbar-nav {
-    text-align: center;
+  .custom-tabs .nav-link {
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
   
-  .custom-navbar .nav-link {
+  .admin-stat-number {
+    font-size: 2rem;
+  }
+}
+
+/* Responsive adjustments for blockchain explorer */
+@media (max-width: 768px) {
+  .hash-display {
+    font-size: 0.75rem;
+    padding: 0.4rem;
+  }
+  
+  .blockchain-accordion .accordion-button {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .transaction-card .col-md-5,
+  .transaction-card .col-md-4,
+  .transaction-card .col-md-3 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
     margin: 0.2rem 0;
   }
   
-  .enhanced-card .card-body {
-    padding: 1.5rem;
+  .dashboard-stat {
+    padding: 1rem;
   }
   
   .stat-number {
     font-size: 2rem;
   }
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .enhanced-form {
+    padding: 1.5rem;
   }
 }
 
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
+/* Animation for block updates */
+@keyframes highlight {
+  0% { background-color: transparent; }
+  50% { background-color: rgba(243, 156, 18, 0.2); }
+  100% { background-color: transparent; }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #6366f1, #10b981);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #10b981, #6366f1);
-}
-
-/* Fix form label visibility */
-.form-label {
-  color: #ffffff !important;
-  font-weight: 600;
-}
-
-/* Ensure all text in forms is visible */
-.glass-form-control,
-.glass-select {
-  color: #ffffff !important;
-}
-
-.glass-form-control::placeholder {
-  color: rgba(255, 255, 255, 0.7) !important;
+.highlight-animation {
+  animation: highlight 2s ease;
 }
